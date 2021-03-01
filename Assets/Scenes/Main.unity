@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  jump: 2
+  jump: 3
   tr: {fileID: 871933226}
   joystick: {fileID: 1009181089}
   btn_att: {fileID: 1466675909}
