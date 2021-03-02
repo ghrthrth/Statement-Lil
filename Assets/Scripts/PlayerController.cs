@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
         else if (joystick.Horizontal < 0)
             transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Ground")
