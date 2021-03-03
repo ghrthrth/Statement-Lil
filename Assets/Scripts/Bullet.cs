@@ -5,8 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
-    Rigidbody2D rb;
-    private bool enemy;
+    [SerializeField] private Rigidbody2D rb;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -16,23 +15,12 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy();
+
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.tag == "Enemy")
-            enemy = true;
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Enemy")
-            enemy = false;
-    }
-
-    private void Destroy()
-    {
-        if (enemy == true)
+        if (collision.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
