@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Ground")
             ground = false;
     }
+
     private void Attack()
     {
         if (btn_att_pos != btn_att.transform.position.y)

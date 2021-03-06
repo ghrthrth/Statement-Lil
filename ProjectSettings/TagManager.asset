@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Bullet
   - enemy
+  - Boom
   layers:
   - Default
   - TransparentFX

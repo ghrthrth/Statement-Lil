@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,13 +12,19 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private Joystick joystick;
     [SerializeField] private int health;
+    public Transform boompos;
+    public GameObject Boom;
+    public float lifetime = 0.2f;
+    [SerializeField] public Vector3 pos; // for fix otbros persa
+    /*    private Animator camAnim;*/
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
+/*        camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();*/
     }
+
     private void Update()
     {
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -27,20 +34,13 @@ public class EnemyController : MonoBehaviour
         {
             anim.SetBool("IsRun", true);
         }
+
         else if (joystick.Horizontal == 0)
         {
             anim.SetBool("IsRun", false);
         }
-        /*        if (joystick.Horizontal != 0)
-                {
-                    anim.SetBool("Isrun", true);
-                }
-                else if (joystick.Horizontal == 0)
-                {
-                    anim.SetBool("Isrun", false);
-                }*/
+
         Flip();
-        /*        Attack();*/
         if (joystick.Vertical >= 0.5f)
             Jump();
         IsDie();
@@ -51,7 +51,6 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             anim.SetBool("IsIdle", true);
-/*            Instantiate(Boom);*/
             Invoke("Die", 0.5f);
         }
         else
@@ -63,6 +62,7 @@ public class EnemyController : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        SceneManager.LoadScene("Level");
     }
 
     private void Jump()
@@ -87,6 +87,7 @@ public class EnemyController : MonoBehaviour
         if (other.tag == "Ground")
             ground = true;
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Ground")
@@ -97,8 +98,11 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
+            var boom = (GameObject) Instantiate(Boom, boompos.transform.position, transform.rotation);
+/*            camAnim.SetTrigger("shake");*/
+            transform.position = transform.position + pos;
+            Destroy(boom, lifetime);
             health -= 5;
         }
-
     }
 }
