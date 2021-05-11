@@ -11,7 +11,6 @@ public class Game : MonoBehaviour
 	{
 		if (Instance == null) {
 			Instance = this;
-			DontDestroyOnLoad (gameObject);
 		} else {
 			Destroy (gameObject);
 		}
@@ -19,7 +18,7 @@ public class Game : MonoBehaviour
 
 	#endregion
 
-	[SerializeField] Text[] allCoinsUIText;
+	[SerializeField] Text[] allCoinsUIText;//ff
 
 	public int Coins;
 
@@ -28,7 +27,7 @@ public class Game : MonoBehaviour
 		UpdateAllCoinsUIText ();
 	}
 
-	public void UseCoins (int amount)
+    public void UseCoins (int amount)
 	{
 		Coins -= amount;
 	}
